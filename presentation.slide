@@ -1,0 +1,94 @@
+# Go Pipelines
+04 August 2020
+
+Dórian Langbeck, Filipe Reuwsaat
+dorianlangbeck@gmail.com
+filipe.gorges.reuwsaat@gmail.com
+
+##  A word about Go
+- Go was created to **reduce the complexity** of writing server software, by bringing first-class support to concurrency
+ and garbage collection while providing fast compilation times, simplified syntax (**25 keywords**) and easy tooling.
+- Go's **concurrency primitives** make it easy to construct **streaming data pipelines** that make efficient use of I/O and multiple CPUs.
+
+## A word about Pipelines
+A **pipeline** is a series of **stages** connected by **channels**, where each stage is a **group of goroutines**
+running the **same function**. In each stage, the goroutines:
+
+- **receive** values from upstream via **inbound channels**
+- **perform** some function on that data, usually **producing new values**
+- **send** values downstream via **outbound channels**
+
+Each stage has any number of inbound and outbound channels, except the first and last stages, which have only outbound
+or inbound channels, respectively. The **first stage** is sometimes called the **source or producer**; the **last stage**,
+ the **sink or consumer**.
+
+## Basic Syntax 1-2
+.code -numbers basic_syntax/main.go /START 1/,/END 1/
+
+## Basic Syntax 2-2
+.play -numbers basic_syntax/main.go /START 2/,/END 2/
+
+## Functions/Closures 1-2
+.code -numbers functions/main.go /START 1/,/END 1/
+
+## Functions/Closures 2-2
+.play -numbers functions/main.go /START 2/,/END 2/
+
+## Defer 1-2
+.code -numbers defer/main.go /START 1/,/END 1/
+
+## Defer 2-2
+.play -numbers defer/main.go /START 2/,/END 2/
+
+## Channels 1-2
+.code -numbers channels/main.go /START 1/,/END 1/
+
+## Channels 2-2
+.play -numbers channels/main.go /START 2/,/END 2/
+
+## Goroutines
+.play -numbers goroutines/main.go /START/,/END/
+
+## For-range
+.play -numbers for_range/main.go /START/,/END/
+
+## Select
+.play -edit -numbers select/main.go /START/,/END/
+
+## Pipelines
+We'll start with a simple **string transformation pipeline**, starting with our **producer**:
+
+.code basic_pipeline_1/main.go /START FROMARRAY/,/END FROMARRAY/
+
+.play basic_pipeline_1/main.go /START MAINFROMARRAY/,/END MAINFROMARRAY/
+
+## Pipelines
+Next, let's add a **logger** stage to see what's going on:
+
+.code basic_pipeline_2/main.go /START LOGGER/,/END LOGGER/
+
+.play basic_pipeline_2/main.go /START MAINLOGGER1/,/END MAINLOGGER1/
+
+## Pipelines
+Next, let's add an **upper** stage:
+
+.code basic_pipeline_3/main.go /START UPPER/,/END UPPER/
+
+.play basic_pipeline_3/main.go /START MAINUPPER/,/END MAINUPPER/
+
+## Pipelines
+Add another **logger** stage:
+
+.play basic_pipeline_4/main.go /START MAINLOGGER2/,/END MAINLOGGER2/
+
+## Pipelines
+Now, let's add a **quote** stage:
+
+.code basic_pipeline_5/main.go /START QUOTE/,/END QUOTE/
+
+.play basic_pipeline_5/main.go /START MAINQUOTE/,/END MAINQUOTE/
+
+## Pipelines
+Finally, we can add another **logger** stage:
+
+.play basic_pipeline_6/main.go /START MAINLOGGER3/,/END MAINLOGGER3/
