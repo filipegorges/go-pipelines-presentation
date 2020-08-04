@@ -2,29 +2,52 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"time"
 )
 
+func sleepMs(delay int) {
+	sleepMs := time.Duration(delay)
+	time.Sleep(sleepMs * time.Millisecond)
+}
+
+func generateIntEvery(delayMs int) <-chan int {
+	ch := make(chan int)
+	go func() {
+		for i := 0; ; i++ {
+			time.Sleep(time.Duration(delayMs) * time.Millisecond)
+			ch <- 200 - rand.Intn(100)
+		}
+	}()
+	return ch
+}
+
+func generateFloatEvery(delayMs int) <-chan float32 {
+	ch := make(chan float32)
+	go func() {
+		for i := 0; ; i++ {
+			time.Sleep(time.Duration(delayMs) * time.Millisecond)
+			ch <- rand.Float32()
+		}
+	}()
+	return ch
+}
+
 // START OMIT
 func main() {
-	channel1 := make(chan string)
-	channel2 := make(chan string)
+	floatChannel := generateFloatEvery(200)
+	intChannel := generateIntEvery(100)
 
-	go func() {
-		time.Sleep(1 * time.Second)
-		channel1 <- "one"
-	}()
-	go func() {
-		time.Sleep(2 * time.Second)
-		channel2 <- "two"
-	}()
-
-	for i := 0; i < 2; i++ {
-		select { // HL
-		case message1 := <-channel1: // HL
-			fmt.Println("received", message1)
-		case message2 := <-channel2: // HL
-			fmt.Println("received", message2)
+	deadline := time.After(500 * time.Millisecond)
+	for {
+		select {
+		case f := <-floatChannel: // HL
+			fmt.Printf("float received: %.3f\n", f)
+		case n := <-intChannel: // HL
+			fmt.Printf("integer received: %d\n", n)
+		case <-deadline: // HL
+			fmt.Println("deadline reached [exiting]")
+			return
 		}
 	}
 }
