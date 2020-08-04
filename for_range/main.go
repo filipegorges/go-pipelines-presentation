@@ -19,4 +19,5 @@ func main() {
 	}
 	telemarketing() // HL
 }
+
 // END OMIT

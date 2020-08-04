@@ -1,9 +1,9 @@
-// START 1 OMIT
 package main
 
 import "fmt"
 
-func defersAreSimilarToTryWithResources() bool {
+// START 1 OMIT
+func defersWillBeTheLastThingToRunBeforeReturning() bool {
 	defer fmt.Println("I'll print before return!!") // HL
 
 	usages := []string{
@@ -19,11 +19,11 @@ func defersAreSimilarToTryWithResources() bool {
 
 	return true // HL
 }
-// END 1 OMIT
-// START 2 OMIT
+
 func main() {
-	if defersAreSimilarToTryWithResources() {
+	if defersWillBeTheLastThingToRunBeforeReturning() {
 		fmt.Println("Let's move on!") // HL
 	}
 }
-// END 2 OMIT
+
+// END 1 OMIT

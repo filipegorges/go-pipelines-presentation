@@ -28,23 +28,14 @@ or inbound channels, respectively. The **first stage** is sometimes called the *
 ## Basic Syntax 2-2
 .play -numbers basic_syntax/main.go /START 2/,/END 2/
 
-## Functions/Closures 1-2
-.code -numbers functions/main.go /START 1/,/END 1/
+## Functions/Closures
+.play -numbers functions/main.go /START 1/,/END 1/
 
-## Functions/Closures 2-2
-.play -numbers functions/main.go /START 2/,/END 2/
+## Defer
+.play -numbers defer/main.go /START 1/,/END 1/
 
-## Defer 1-2
-.code -numbers defer/main.go /START 1/,/END 1/
-
-## Defer 2-2
-.play -numbers defer/main.go /START 2/,/END 2/
-
-## Channels 1-2
-.code -numbers channels/main.go /START 1/,/END 1/
-
-## Channels 2-2
-.play -numbers channels/main.go /START 2/,/END 2/
+## Channels
+.play -numbers channels/main.go /START 1/,/END 1/
 
 ## Goroutines
 .play -numbers goroutines/main.go /START/,/END/
@@ -91,4 +82,4 @@ Now, let's add a **quote** stage:
 ## Pipelines
 Finally, we can add another **logger** stage:
 
-.play basic_pipeline_6/main.go /START MAINLOGGER3/,/END MAINLOGGER3/
+.play -edit basic_pipeline_6/main.go /START MAINLOGGER3/,/END MAINLOGGER3/

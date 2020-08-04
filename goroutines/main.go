@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"time"
 )
+
 // START OMIT
 func f(from string) { // HL
 	for i := 0; i < 3; i++ {
@@ -23,4 +24,5 @@ func main() {
 	time.Sleep(time.Second)
 	fmt.Println("done") // HL
 }
+
 // END OMIT

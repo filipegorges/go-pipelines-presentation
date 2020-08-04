@@ -1,29 +1,28 @@
-// START 1 OMIT
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
-func countWords(words []string, fn func(word string)) int { // HL
-	wordCount := 0
-	for _, word := range words {
-		wordCount++
-		fn(word) // HL
+// START 1 OMIT
+func MapInPlace(pieces []string, fn func(string) string) {
+	for i := 0; i < len(pieces); i++ {
+		pieces[i] = fn(pieces[i]) // HL
 	}
-	return wordCount
 }
-// END 1 OMIT
-// START 2 OMIT
+
 func main() {
 	words := []string{"Closures", "are", "awesome", "!"}
 
-	lenAcc := 0 // HL
-	wordLenAcc := func(word string) { // HL
-		lenAcc += len(word) // HL
+	// Closure as a variable // HL
+	transformer := func(s string) string { // HL
+		return strings.ToUpper(s) // HL
 	} // HL
 
-	wc := countWords(words, wordLenAcc)
+	MapInPlace(words, transformer)
 
-	fmt.Println("Number of words: ", wc)
-	fmt.Println("Average length of words: ", lenAcc/wc) // HL
+	fmt.Printf("Number of words: %#v", words)
 }
-// END 2 OMIT
+
+// END 1 OMIT

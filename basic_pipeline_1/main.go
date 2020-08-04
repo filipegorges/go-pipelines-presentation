@@ -1,10 +1,9 @@
 package main
 
-import (
-	"log"
-)
+import "fmt"
+
 // START FROMARRAY OMIT
-func fromArray(arr []string) <-chan string { // HL
+func createProducerFromArray(arr []string) <-chan string { // HL
 	out := make(chan string) // HL
 	go func() {
 		defer close(out) // HL
@@ -14,6 +13,7 @@ func fromArray(arr []string) <-chan string { // HL
 	}()
 	return out // HL
 }
+
 // END FROMARRAY OMIT
 func main() {
 	// START MAINFROMARRAY OMIT
@@ -23,9 +23,9 @@ func main() {
 		"instead, share memory by communicating.",
 	}
 
-	out = fromArray(wordsOfWisdom) // HL
-	for str := range out { // HL
-		log.Printf("Sink received: %s", str)
+	out = createProducerFromArray(wordsOfWisdom) // HL
+	for str := range out {                       // HL
+		fmt.Println("Consumer received: ", str)
 	}
 	// END MAINFROMARRAY OMIT
 }

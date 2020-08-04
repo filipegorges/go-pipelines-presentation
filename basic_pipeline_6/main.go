@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"strings"
 )
-func fromArray(arr []string) <-chan string {
+
+func createProducerFromArray(arr []string) <-chan string {
 	out := make(chan string)
 	go func() {
 		defer close(out)
@@ -16,12 +16,12 @@ func fromArray(arr []string) <-chan string {
 
 	return out
 }
-func logger(name string, in <-chan string) <-chan string {
+func logToStackDriver(name string, in <-chan string) <-chan string {
 	out := make(chan string)
 	go func() {
 		defer close(out)
 		for str := range in {
-			log.Printf("Logger %s received: %s", name, str)
+			fmt.Printf("StackDriver %q received: %s\n", name, str)
 			out <- str
 		}
 	}()
@@ -58,15 +58,15 @@ func main() {
 	}
 
 	// START MAINLOGGER3 OMIT
-	out = fromArray(wordsOfWisdom)
-	out = logger("input", out)
+	out = createProducerFromArray(wordsOfWisdom)
+	out = logToStackDriver("input", out)
 	out = upper(out)
-	out = logger("uppered", out)
+	out = logToStackDriver("uppered", out)
 	out = quote(out)
-	out = logger("quoted", out) // HL
+	out = logToStackDriver("quoted", out) // HL
 	// END MAINLOGGER3 OMIT
 
 	for str := range out {
-		log.Printf("Sink received: %s", str)
+		fmt.Println("Consumer received: ", str)
 	}
 }
