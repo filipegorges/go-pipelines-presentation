@@ -5,10 +5,6 @@ Dórian Langbeck, Filipe Reuwsaat
 dorianlangbeck@gmail.com
 filipe.gorges.reuwsaat@gmail.com
 
-**References*:
-- https://blog.golang.org/pipelines
-- https://talks.golang.org/2012/concurrency.slide#1
-
 ##  A word about Go
 - Go was created to **reduce the complexity** of writing server software, by bringing first-class support to concurrency
  and garbage collection while providing fast compilation times, simplified syntax (**25 keywords**) and easy tooling.
