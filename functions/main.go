@@ -22,7 +22,7 @@ func main() {
 
 	MapInPlace(words, transformer)
 
-	fmt.Printf("Number of words: %#v", words)
+	fmt.Printf("'words' in upper case: %#v", words)
 }
 
 // END 1 OMIT
